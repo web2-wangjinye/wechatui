@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/authorize/authorize",
     "pages/index/index",
     "pages/logs/logs",
     "pages/concern/concern",
-    "pages/mine/mine",
-    "pages/authorize/authorize"
+    "pages/mine/mine"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
