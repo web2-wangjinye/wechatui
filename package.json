@@ -1,0 +1,29 @@
+{
+  "name": "wechatui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "build": "gulp css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web2-wangjinye/wechatui.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/web2-wangjinye/wechatui/issues"
+  },
+  "homepage": "https://github.com/web2-wangjinye/wechatui#readme",
+  "dependencies": {
+    "vant-weapp": "^0.5.28"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-postcss": "^8.0.0",
+    "postcss-pxtransform": "^2.2.3"
+  }
+}
