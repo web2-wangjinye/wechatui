@@ -13,7 +13,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(app.globalData.hasauth)
+    this.logo= this.selectComponent(".authorize");
+    //判断缓存中有没有授权信息，如果没有就显示弹窗，有就直接隐藏弹窗
+    let storageKey = wx.getStorageSync('userInfo');
+    let binduser = wx.getStorageSync('binduser');
+    if (storageKey && binduser){
+      wx.getStorage({
+        key: 'userInfo',
+        success: (res) => {
+          if (res.data) {
+            app.globalData.userInfo = res.data;
+            this.setData({
+              isauth: app.globalData.hasauth
+             })
+            this.logo.hideDialog();//调用子组件的方法
+          }
+        },
+      })
+    }else{
+      this.logo.showDialog();//调用子组件的方法
+    }
   },
 
   /**
@@ -27,10 +47,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this;
-    that.setData({
-      isauth: app.globalData.hasauth
-    })
+    // var that = this;
+    // that.setData({
+    //   isauth: app.globalData.hasauth
+    // })
+  
   },
 
   /**
@@ -68,10 +89,10 @@ Page({
 
   },
   // 接受triggerEvent 方法触发的自定义组件事件来更新同步数据
-  okEvent: function (e) {
-    let that = this;
-    that.setData({
-      isauth: e.detail.hasauth
-    })
-  }
+  // okEvent: function (e) {
+  //   let that = this;
+  //   that.setData({
+  //     isauth: e.detail.hasauth
+  //   })
+  // }
 })
