@@ -1,0 +1,16 @@
+<!--pages/authorize/authorize.wxml-->
+<!--授权页面-->
+<view wx:if="{{canIUse}}" class="authorize">
+    <van-button round type="info"  open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</van-button>
+    <van-popup
+    show="{{ show }}"
+    round
+    close-icon="close"
+    position="bottom"
+    bind:close="onClose"
+    >
+        <van-picker show-toolbar title="选择账户" columns="{{ columns }}" bind:confirm="onConfirm" bind:change="onChange" />
+    </van-popup>
+</view>
+ 
+<view wx:else class="authorize">请升级微信版本</view>

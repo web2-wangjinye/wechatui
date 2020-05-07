@@ -1,0 +1,4 @@
+.authorize{
+  text-align: center;
+  margin-top:400rpx
+}

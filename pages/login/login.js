@@ -1,12 +1,11 @@
-// pages/concern/concern.js
-const app = getApp()
+// pages/login/login.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isauth:null
+
   },
 
   /**
@@ -27,10 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this;
-    that.setData({
-      isauth: app.globalData.hasauth
-    })
+
   },
 
   /**
@@ -66,12 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  // 接受triggerEvent 方法触发的自定义组件事件来更新同步数据
-  okEvent: function (e) {
-    let that = this;
-    that.setData({
-      isauth: e.detail.hasauth
-    })
   }
 })

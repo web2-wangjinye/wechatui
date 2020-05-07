@@ -1,2 +1,3 @@
 <!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<text wx:if="{{isauth}}">pages/mine/mine.wxml</text>
+<authorize wx:else bind:okEvent="okEvent"></authorize>

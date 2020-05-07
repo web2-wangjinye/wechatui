@@ -1,11 +1,12 @@
 // pages/mine/mine.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    isauth:null
   },
 
   /**
@@ -26,7 +27,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let that = this;
+    that.setData({
+      isauth: app.globalData.hasauth
+    })
   },
 
   /**
@@ -62,5 +66,11 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  okEvent: function (e) {
+    let that = this;
+    that.setData({
+      isauth: e.detail.hasauth
+    })  
   }
 })
