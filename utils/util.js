@@ -14,7 +14,16 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+// 推荐页使用的request请求；
+const json2Form = json => {
+  var str = [];
+  for (var p in json) {
+    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(json[p]));
+  }
+  return str.join("&");
+}
 
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  json2Form:json2Form
 }

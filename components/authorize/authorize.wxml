@@ -13,15 +13,15 @@
 		<block wx:if="{{authlogin}}">
 			<view class="isMask"></view>
 			<view class="isLogin">
-				<van-button round type="info" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权登录</van-button>
+				<van-button round type="info" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap="goUrl">授权登录</van-button>
 			</view>
 		</block>
-        <block wx:if="{{binduser}}">
+        <!-- <block wx:if="{{binduser}}">
 			<view class="isMask"></view>
 			<view class="isLogin">
-				<van-button round type="info" open-type="getUserInfo" bindgetuserinfo="getUserInfo">绑定账号</van-button>
+				<van-button round type="info">绑定账号</van-button>
 			</view>
-		</block>
+		</block> -->
 	</block>
 	<view wx:else class="authorize">请升级微信版本</view>
 </view>

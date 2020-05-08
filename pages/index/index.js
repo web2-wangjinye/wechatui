@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+const $api = require('../../utils/request.js').API;
 Page({
   data: {
     motto: 'Hello World',
