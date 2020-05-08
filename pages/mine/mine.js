@@ -13,16 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     // //判断缓存中有没有授权信息，如果没有就显示弹窗，有就直接隐藏弹窗
-     this.logo= this.selectComponent(".authorize");
-     let storageKey = wx.getStorageSync('userInfo');
-     let binduser = wx.getStorageSync('bindacount');
-     if (storageKey && binduser){
-             this.logo.hideDialog();//调用子组件的方法
-     }else{
-       this.logo.authStatu()
-       this.logo.showDialog();//调用子组件的方法
-     }
+   
     // console.log(app.globalData.hasauth)
     // this.logo= this.selectComponent(".authorize");
     // //判断缓存中有没有授权信息，如果没有就显示弹窗，有就直接隐藏弹窗
@@ -62,7 +53,16 @@ Page({
     // that.setData({
     //   isauth: app.globalData.hasauth
     // })
-   
+     // //判断缓存中有没有授权信息，如果没有就显示弹窗，有就直接隐藏弹窗
+     this.logo= this.selectComponent(".authorize");
+     let storageKey = wx.getStorageSync('userInfo');
+     let binduser = wx.getStorageSync('bindacount');
+     if (storageKey && binduser){
+             this.logo.hideDialog();//调用子组件的方法
+     }else{
+       this.logo.authStatu()
+       this.logo.showDialog();//调用子组件的方法
+     }
   },
 
   /**

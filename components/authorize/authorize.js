@@ -125,17 +125,17 @@ Component({
 //  绑定账号
 acountStatus(){
   let openid = wx.getStorageSync('userInfo').openid;
-  let binduser = wx.getStorageSync('bindacount')
+  // let binduser = wx.getStorageSync('bindacount')
   let that = this;
-  if(binduser){
-    const pages = getCurrentPages()
-    const perpage = pages[pages.length - 1]
-    perpage.onLoad()
-  }else{
+  // if(binduser){
+  //   const pages = getCurrentPages()
+  //   const perpage = pages[pages.length - 1]
+  //   perpage.onLoad()
+  // }else{
     $api.mockApi({ openid: openid }).then(data => {
       console.log(data)
       that.setData({
-        currstatus:2
+        currstatus:3
       })
       var curracount = that.data.currstatus
       console.log(curracount)
@@ -155,7 +155,7 @@ acountStatus(){
         })
       }else{
         // 没有账号
-        that.showDialog()
+        that.hideDialog()
         wx.navigateTo({
           url: '/pages/login/login',
         })
@@ -165,7 +165,7 @@ acountStatus(){
     .catch(err => {
        //请求失败
     })
-  }
+  // }
   
 },
     authStatu(){
@@ -206,6 +206,26 @@ acountStatus(){
         }
       })
     },
+    //当用户第一次拒绝后再次请求授权
+  openConfirm: function () {
+    wx.showModal({
+      content: '检测到您没打开此小程序的用户权限，是否去设置打开？',
+      confirmText: "确认",
+      cancelText: "取消",
+      success: function (res) {
+        console.log(res);
+        //点击“确认”时打开设置页面
+        if (res.confirm) {
+          console.log('用户点击确认')
+          wx.openSetting({
+            success: (res) => { }
+          })
+        } else {
+          console.log('用户点击取消')
+        }
+      }
+    });
+  },
     attacheds(){
       console.log("======技术1=======")
       let storageKey = wx.getStorageSync('userInfo');
@@ -269,11 +289,19 @@ acountStatus(){
       var that = this;
       let detail = e.detail;
       if (detail.errMsg == "getUserInfo:fail auth deny") {
+        that.openConfirm();//如果拒绝，在这里进行再次获取授权的操作
         // 拒绝授权
-        wx.showToast({
-          title: '请授权登录',
-          icon: 'none'
-        })
+        // wx.showToast({
+        //   title: '请授权登录',
+        //   icon: 'none'
+        // })
+        const pages = getCurrentPages()
+        const perpage = pages[pages.length - 1]
+        console.log(pages)
+        console.log(perpage.__route__)
+        if(perpage.__route__=="pages/index/index" || perpage.__route__=="pages/detail/detail"){
+         that.hideDialog()
+        }
       } else {
         // 允许授权
         // 判断是否登录

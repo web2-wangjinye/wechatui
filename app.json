@@ -5,7 +5,8 @@
     "pages/concern/concern",
     "pages/mine/mine",
     "pages/register/register",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,4 +1,4 @@
-// pages/login/login.js
+// pages/detail/detail.js
 Page({
 
   /**
@@ -12,7 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setStorageSync('bindacount', true);
+
   },
 
   /**
@@ -62,5 +62,16 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  bindViewTap:function(){
+    this.logo= this.selectComponent(".authorize");
+    let storageKey = wx.getStorageSync('userInfo');
+    let binduser = wx.getStorageSync('bindacount');
+    if (storageKey && binduser){
+            this.logo.hideDialog();//调用子组件的方法
+    }else{
+      this.logo.authStatu()
+      this.logo.showDialog();//调用子组件的方法
+    }
+  },
 })

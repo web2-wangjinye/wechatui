@@ -1,0 +1,5 @@
+<!--pages/detail/detail.wxml-->
+<view>
+    <van-button type="primary" bindtap="bindViewTap">抢拍</van-button>
+</view>
+<authorize class="authorize"></authorize>
