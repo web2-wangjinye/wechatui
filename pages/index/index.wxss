@@ -1,2 +1,5 @@
 /**index.wxss**/
-
+.loading{
+  text-align: center;
+  padding:30rpx 0
+}
