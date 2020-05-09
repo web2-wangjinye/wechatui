@@ -12,9 +12,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setStorageSync('bindacount', true);
+   
   },
-
+  login:function(){
+    wx.navigateBack({
+      complete: (res) => {
+        console.log(res)
+        var pages = getCurrentPages();
+        var beforePage = pages[pages.length - 1];
+        beforePage.onLoad();
+      },
+    })
+    // wx.setStorageSync('bindacount', true);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

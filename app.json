@@ -1,12 +1,14 @@
 {
   "pages": [
+    "pages/detail/detail",
     "pages/index/index",
     "pages/logs/logs",
     "pages/concern/concern",
     "pages/mine/mine",
     "pages/register/register",
     "pages/login/login",
-    "pages/detail/detail"
+    "pages/auth/auth",
+    "components/modal/modal"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -43,8 +45,10 @@
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "van-icon": "/miniprogram_npm/vant-weapp/icon/index",
     "van-loading": "/miniprogram_npm/vant-weapp/loading/index",
     "van-button": "/miniprogram_npm/vant-weapp/button/index",
+    "modalView": "/components/modal/modal",
     "authorize": "/components/authorize/authorize"
   }
 }

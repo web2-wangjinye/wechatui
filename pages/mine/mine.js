@@ -13,29 +13,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
-    // console.log(app.globalData.hasauth)
-    // this.logo= this.selectComponent(".authorize");
-    // //判断缓存中有没有授权信息，如果没有就显示弹窗，有就直接隐藏弹窗
-    // let storageKey = wx.getStorageSync('userInfo');
-    // let binduser = wx.getStorageSync('binduser');
-    // if (storageKey && binduser){
-    //   wx.getStorage({
-    //     key: 'userInfo',
-    //     success: (res) => {
-    //       if (res.data) {
-    //         app.globalData.userInfo = res.data;
-    //         this.setData({
-    //           isauth: app.globalData.hasauth
-    //          })
-    //         this.logo.hideDialog();//调用子组件的方法
-    //       }
-    //     },
-    //   })
-    // }else{
-    //   this.logo.showDialog();//调用子组件的方法
-    //   this.logo.attacheds()
-    // }
+    this.selectComponent(".authorize").hideDialog();
+    this.selectComponent(".authorize").commonAuth(function(res){
+      console.log(res)
+    })
+
   },
 
   /**
@@ -53,23 +35,14 @@ Page({
     // that.setData({
     //   isauth: app.globalData.hasauth
     // })
-     // //判断缓存中有没有授权信息，如果没有就显示弹窗，有就直接隐藏弹窗
-     this.logo= this.selectComponent(".authorize");
-     let storageKey = wx.getStorageSync('userInfo');
-     let binduser = wx.getStorageSync('bindacount');
-     if (storageKey && binduser){
-             this.logo.hideDialog();//调用子组件的方法
-     }else{
-       this.logo.authStatu()
-       this.logo.showDialog();//调用子组件的方法
-     }
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+   
   },
 
   /**
@@ -106,3 +79,25 @@ Page({
   //   })  
   // }
 })
+    // console.log(app.globalData.hasauth)
+    // this.logo= this.selectComponent(".authorize");
+    // //判断缓存中有没有授权信息，如果没有就显示弹窗，有就直接隐藏弹窗
+    // let storageKey = wx.getStorageSync('userInfo');
+    // let binduser = wx.getStorageSync('binduser');
+    // if (storageKey && binduser){
+    //   wx.getStorage({
+    //     key: 'userInfo',
+    //     success: (res) => {
+    //       if (res.data) {
+    //         app.globalData.userInfo = res.data;
+    //         this.setData({
+    //           isauth: app.globalData.hasauth
+    //          })
+    //         this.logo.hideDialog();//调用子组件的方法
+    //       }
+    //     },
+    //   })
+    // }else{
+    //   this.logo.showDialog();//调用子组件的方法
+    //   this.logo.attacheds()
+    // }

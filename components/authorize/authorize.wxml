@@ -5,23 +5,21 @@
 </view> -->
 <view wx:if="{{ishow}}">
 	<block wx:if="{{canIUse}}" class="authorize">
-		<block wx:if="{{chooseuser}}">
+		<block wx:if="{{alreadyauth}}">
+			<view class="isMask"></view>
+			<view class="isLogin">
+				<van-button round type="info" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权登录</van-button>
+			</view>
+		</block>
+    <block wx:else>
+			<view class="isMask"></view>
+			<view class="isLogin">
+				<van-button round type="info" bindtap="bindAcount">绑定账号</van-button>
+			</view>
 			<van-popup show="{{ chooseuser }}" position="bottom">
 				<van-picker show-toolbar title="选择账户" columns="{{ columns }}" bind:confirm="onConfirm" cancel-button-text="" />
 			</van-popup>
-		</block>
-		<block wx:if="{{authlogin}}">
-			<view class="isMask"></view>
-			<view class="isLogin">
-				<van-button round type="info" open-type="getUserInfo" bindgetuserinfo="getUserInfo" bindtap="goUrl">授权登录</van-button>
-			</view>
-		</block>
-        <!-- <block wx:if="{{binduser}}">
-			<view class="isMask"></view>
-			<view class="isLogin">
-				<van-button round type="info">绑定账号</van-button>
-			</view>
-		</block> -->
+		</block> 
 	</block>
 	<view wx:else class="authorize">请升级微信版本</view>
 </view>

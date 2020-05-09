@@ -1,19 +1,20 @@
 <!--index.wxml-->
 <!-- https://blog.csdn.net/weixin_34294649/article/details/92846236 -->
 <block wx:if="{{canIUse}}">
-  <!-- <view class="container">
-      <van-button type="primary" bindtap="goDetail">详情</van-button>
-       <van-button type="primary" bindtap="bindViewTap">抢拍</van-button>
-  </view> -->
   <view class='box'>
-    <scroll-view scroll-y='true' style="height:{{height}}px" bindscrolltolower='lower'>
-      <view wx:for="{{res}}" data-id="{{index}}" wx:key="{{index}}" style="height:{{(height/6)-1}}px;width:100%;text-align:center;line-height:{{(height/6)-1}}px; border-bottom:1px solid #ccc">{{item}}</view>
-      
+    <scroll-view scroll-y='true' style="height:{{height*2}}rpx" bindscrolltolower='lower' bindscroll="scrolltoupper" scroll-top='{{topNum}}'>
+          <van-button type="primary" bindtap="goDetail">详情</van-button>
+          <van-button type="primary" bindtap="bindViewTap">抢拍</van-button>
+      <view wx:for="{{res}}" data-id="{{index}}" wx:key="index" style="height:{{(height/6)-1}}px;width:100%;text-align:center;line-height:{{(height/6)-1}}px; border-bottom:1px solid #ccc">{{item}}</view>     
        <view class="loading">
-        <van-loading color="#1989fa" size="48rpx" hidden="{{!searchLoading}}"/>
+        <view hidden="{{!searchLoading}}">
+            <van-loading color="#1989fa" size="48rpx" />
+        </view>
         <view hidden="{{!searchLoadingComplete}}">已经到底啦~</view>
        </view>
-         
+       <view class="gotop" hidden='{{!cangotop}}' catchtap="goTop">
+          <van-icon class="goupicon" name="down" size="48rpx"/>
+       </view>
     </scroll-view>
     </view>
 </block>

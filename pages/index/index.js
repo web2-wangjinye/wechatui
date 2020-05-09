@@ -8,7 +8,8 @@ Page({
     res: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     searchLoading: false, //"上拉加载"的变量，默认false，隐藏  
-    searchLoadingComplete: false  //“没有数据”的变量，默认false，隐藏 
+    searchLoadingComplete: false,  //“没有数据”的变量，默认false，隐藏 
+    topNum: 0
   },
   //事件处理函数
   goDetail: function() {
@@ -17,15 +18,9 @@ Page({
     })
   },
   bindViewTap:function(){
-    this.logo= this.selectComponent(".authorize");
-    let storageKey = wx.getStorageSync('userInfo');
-    let binduser = wx.getStorageSync('bindacount');
-    if (storageKey && binduser){
-            this.logo.hideDialog();//调用子组件的方法
-    }else{
-      this.logo.authStatu()
-      this.logo.showDialog();//调用子组件的方法
-    }
+     this.selectComponent(".authorize").commonAuth(function(res){
+     console.log(res)
+   })
   },
   lower() {
     var result = this.data.res;
@@ -36,7 +31,8 @@ Page({
     };
     var cont = result.concat(resArr);
     console.log(resArr.length);
-    if (cont.length >= 30) {
+    console.log(cont)
+    if (cont.length >= 40) {
       this.setData({  
         searchLoadingComplete: true, //把“没有数据”设为true，显示  
         searchLoading: false  //把"上拉加载"的变量设为false，隐藏  
@@ -44,8 +40,8 @@ Page({
       return false;
     } else {
       this.setData({  
-        searchLoadingComplete: false, //把“没有数据”设为true，显示  
-        searchLoading: true  //把"上拉加载"的变量设为false，隐藏  
+        searchLoadingComplete: false,
+        searchLoading: true 
       }); 
       setTimeout(() => {
         this.setData({
@@ -55,7 +51,27 @@ Page({
       }, 1500)
     }
   },
+  // 获取滚动条当前位置
+  scrolltoupper:function(e){
+    // console.log(e)
+    if (e.detail.scrollTop > 100) {
+      this.setData({
+        cangotop: true
+      });
+    } else {
+      this.setData({
+        cangotop: false
+      });
+    }
+  },
+  //回到顶部
+  goTop: function (e) {  // 一键回到顶部
+    this.setData({
+      topNum:0
+    });
+  },
   onLoad: function () {
+    this.selectComponent(".authorize").hideDialog();
     wx.getSystemInfo({
       success: (res) => {
         this.setData({
@@ -63,5 +79,10 @@ Page({
         })
       }
     })
-  }
+  },
+  onReady:function(){  
+  },
+  onHide: function () {
+ 
+  },
 })
