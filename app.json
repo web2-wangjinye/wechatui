@@ -1,14 +1,12 @@
 {
   "pages": [
-    "pages/detail/detail",
     "pages/index/index",
-    "pages/logs/logs",
     "pages/concern/concern",
     "pages/mine/mine",
     "pages/register/register",
     "pages/login/login",
     "pages/auth/auth",
-    "components/modal/modal"
+    "pages/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

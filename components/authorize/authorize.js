@@ -6,16 +6,16 @@ Component({
   properties:{},
   //组件的内部数据，和 properties 一同用于组件的模板渲染
   data:{
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),//获取用户信息是否在当前版本可用,
     currstatus:null,
     ishow:false,
     chooseuser:false,
     alreadyauth:false,
-    binduser:false,
-    chooseuser:false,
+    // binduser:false,
     columns: [{ text: '杭州', id:1 },
     { text: '宁波',id:2 },
     { text: '温州',id:3 }],
-    canIUse: wx.canIUse('button.open-type.getUserInfo')//获取用户信息是否在当前版本可用
+   currurl:null
   },
   //组件所在页面的生命周期声明对象
   pageLifetimes:{
@@ -24,14 +24,37 @@ Component({
     },
     //页面打开
     show:function(){
-    
+      
     },
   },
   //组件生命周期函数，在组件实例进入页面节点树时执行
   attached(){
+    var pages = getCurrentPages() //获取加载的页面
+    var currentPage = pages[pages.length-1] //获取当前页面的对象
+    var url = currentPage.route //当前页面url
+    this.setData({
+      currurl:url
+    })
   },
   //组件的方法 
   methods:{
+  // 用户拦截
+  commonAuth:function(call){
+    var that = this;
+    let storageKey = wx.getStorageSync('userInfo');
+    let binduser = wx.getStorageSync('bindacount');
+    if (storageKey && binduser){
+      that.hideDialog();//调用子组件的方法
+      call(true)
+    }else{
+      that.showDialog();//调用子组件的方法
+    new Promise(function(resolve,reject){
+      that.authStatu()
+     }).then(function(){
+        call(false)  
+     })
+    }
+  },
     authStatu(){
       var that = this;
       // 判断用户是否授权
@@ -54,6 +77,7 @@ Component({
     },
     //去授权
     getUserInfo(e){
+      console.log(e)
       var that = this;
       let detail = e.detail;
       if (detail.errMsg == "getUserInfo:fail auth deny") {
@@ -110,9 +134,7 @@ Component({
       //验证登录是否过期
   checksession:function(){
     let that = this;
-    wx.showLoading({
-      title: '请求中',
-    })
+   that.showLoading();
     wx.checkSession({
     success:function(res){
       console.log(res,'登录未过期')
@@ -156,7 +178,7 @@ Component({
       $api.mockApi({ openid: openid }).then(data => {
         console.log(data)
         that.setData({
-          currstatus:1
+          currstatus:2
         })
         var curracount = that.data.currstatus
         console.log(curracount)
@@ -164,7 +186,14 @@ Component({
           // 只有一个账号
           // that.hideDialog()
           wx.setStorageSync('bindacount', true);
-          that.onloadCurr()
+          // console.log(that.data.currurl)
+          if(that.data.currurl=="pages/auth/auth"){
+            wx.navigateBack({
+              delta: 1
+            })
+          }else{
+            that.onloadCurr()
+          }
         }else if(curracount==2){
           // 有多个账号
           // that.showDialog()
@@ -182,29 +211,20 @@ Component({
             url: '/pages/login/login',
           })
         }
-        wx.hideLoading()
+        that.hideLoading()
         //请求成功
       })
       .catch(err => {
         //请求失败
       })   
   },
-  // 用户拦截
-  commonAuth:function(call){
-    var that = this;
-    let storageKey = wx.getStorageSync('userInfo');
-    let binduser = wx.getStorageSync('bindacount');
-    if (storageKey && binduser){
-      that.hideDialog();//调用子组件的方法
-      call(true)
-    }else{
-      that.showDialog();//调用子组件的方法
-    new Promise(function(resolve,reject){
-      that.authStatu()
-     }).then(function(){
-        call(false)  
-     })
-    }
+  showLoading(){
+    wx.showLoading({
+      title: '请求中',
+    })
+  },
+  hideLoading(){
+    wx.hideLoading()
   },
   // 隐藏授权弹窗
   hideDialog(){
@@ -234,11 +254,18 @@ Component({
     const { picker, value, index } = event.detail;
     console.log(`当前值：${value}, 当前索引：${index}`);
     $api.bindAcount({ id:1 }).then(data => {
+   
       wx.setStorageSync('bindacount', true);
       that.setData({
         ishow:false
       })
-      that.onloadCurr()
+      if(that.data.currurl=="pages/auth/auth"){
+        wx.navigateBack({
+          delta: 1
+        })
+      }else{
+        that.onloadCurr()
+      }
     })
     .catch(err => {
        //请求失败

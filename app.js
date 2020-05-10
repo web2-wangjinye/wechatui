@@ -45,6 +45,7 @@ App({
     // })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    tabBarHeight:50
   }
 })

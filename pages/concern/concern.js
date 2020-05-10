@@ -13,10 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.selectComponent(".authorize").hideDialog();
-    this.selectComponent(".authorize").commonAuth(function(res){
-      console.log(res)
-    })
+   
   },
 
   /**
@@ -30,10 +27,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // var that = this;
-    // that.setData({
-    //   isauth: app.globalData.hasauth
-    // })
+    this.selectComponent(".authorize").hideDialog();
+    this.selectComponent(".authorize").commonAuth(function(res){
+      console.log(res)
+    })
   },
 
   /**

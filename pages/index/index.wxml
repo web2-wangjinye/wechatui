@@ -3,9 +3,11 @@
 <block wx:if="{{canIUse}}">
   <view class='box'>
     <scroll-view scroll-y='true' style="height:{{height*2}}rpx" bindscrolltolower='lower' bindscroll="scrolltoupper" scroll-top='{{topNum}}'>
-          <van-button type="primary" bindtap="goDetail">详情</van-button>
+         <van-button type="primary" bindtap="goDetail">详情</van-button>
           <van-button type="primary" bindtap="bindViewTap">抢拍</van-button>
+           <van-button bindtap="guanzhu">关注</van-button>
       <view wx:for="{{res}}" data-id="{{index}}" wx:key="index" style="height:{{(height/6)-1}}px;width:100%;text-align:center;line-height:{{(height/6)-1}}px; border-bottom:1px solid #ccc">{{item}}</view>     
+       
        <view class="loading">
         <view hidden="{{!searchLoading}}">
             <van-loading color="#1989fa" size="48rpx" />
@@ -14,10 +16,19 @@
        </view>
        <view class="gotop" hidden='{{!cangotop}}' catchtap="goTop">
           <van-icon class="goupicon" name="down" size="48rpx"/>
-       </view>
+       </view>     
     </scroll-view>
     </view>
 </block>
 <view wx:else class="authorize">请升级微信版本</view>
-<authorize class="authorize"></authorize>
+
+ <modalView show="{{showModal}}" bindcancel="modalCancel" bindconfirm='modalConfirm' single='{{single}}'>
+    <view class='modal-content'>
+      <scroll-view scroll-y class='main-content'>
+       {{modaldata}}
+      </scroll-view>
+    </view>
+  </modalView>
+
+
 

@@ -1,0 +1,44 @@
+<!--pages/auth/auth.wxml-->
+<!--授权页面-->
+	<block wx:if="{{canIUse}}" class="authorize">
+		<block wx:if="{{alreadyauth}}">
+			<view class="isLogin">
+				<van-button round type="info" open-type="getUserInfo" bindgetuserinfo="getUserInfo" >授权登录</van-button>
+			</view>
+		</block>
+    <block wx:else>
+			<view class="isLogin">
+				<van-button round type="info" bindtap="bindAcount">绑定账号</van-button>
+			</view>
+      <van-popup show="{{ chooseuser }}" position="bottom">
+				<van-picker show-toolbar title="选择账户" columns="{{ columns }}" bind:confirm="onConfirm" cancel-button-text="" />
+			</van-popup>
+		</block>
+	</block>
+	<view wx:else class="authorize">请升级微信版本</view>
+  <!-- "tabBar": {
+    "borderStyle": "black",
+    "color": "#8e9295",
+    "backgroundColor": "#ffffff",
+    "selectedColor": "#69c3aa",
+    "list": [
+      {
+        "selectedIconPath": "images/icon_home_check.png",
+        "iconPath": "images/icon_home.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/icon_concern_check.png",
+        "iconPath": "images/icon_concern.png",
+        "pagePath": "pages/concern/concern",
+        "text": "我的关注"
+      },
+      {
+        "selectedIconPath": "images/icon_my_check.png",
+        "iconPath": "images/icon_my.png",
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  }, -->

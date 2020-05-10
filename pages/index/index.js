@@ -9,7 +9,10 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     searchLoading: false, //"上拉加载"的变量，默认false，隐藏  
     searchLoadingComplete: false,  //“没有数据”的变量，默认false，隐藏 
-    topNum: 0
+    topNum: 0,
+    showModal: false, // 显示modal弹窗
+    single: false, // false 只显示一个按钮，如果想显示两个改为true即可
+    modaldata: null
   },
   //事件处理函数
   goDetail: function() {
@@ -18,9 +21,9 @@ Page({
     })
   },
   bindViewTap:function(){
-     this.selectComponent(".authorize").commonAuth(function(res){
-     console.log(res)
-   })
+  },
+  guanzhu:function(){
+
   },
   lower() {
     var result = this.data.res;
@@ -30,8 +33,8 @@ Page({
       resArr.push(i);
     };
     var cont = result.concat(resArr);
-    console.log(resArr.length);
-    console.log(cont)
+    // console.log(resArr.length);
+    // console.log(cont)
     if (cont.length >= 40) {
       this.setData({  
         searchLoadingComplete: true, //把“没有数据”设为true，显示  
@@ -70,8 +73,23 @@ Page({
       topNum:0
     });
   },
+  showModal(istwo,modaldata){
+    var that = this;
+    that.setData({
+      showModal: true,
+      single:istwo?false:true,
+      modaldata:modaldata
+    })
+  },
+  modalCancel(e) {
+    console.log('点击了取消')
+  },
+  modalConfirm(e) {
+    console.log(e)
+    console.log('点击了确定')
+  },
   onLoad: function () {
-    this.selectComponent(".authorize").hideDialog();
+    // this.selectComponent(".authorize").hideDialog();
     wx.getSystemInfo({
       success: (res) => {
         this.setData({

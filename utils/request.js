@@ -21,6 +21,7 @@ function request(method,url,data,header) {
         data:method==GET?data:Util.json2Form(data),
         method:method,
         success:function(res){
+       
           if (res.code==601){
             wx.showToast({
               title: '请重新登录',
@@ -31,8 +32,8 @@ function request(method,url,data,header) {
             
             // setTimeout(function () {
             //   wx.navigateTo({
-            //     url: "/pages/authorize/index?tokenid=1"
-            //   });
+            //     url: '/pages/auth/auth',
+            //   })
             // }, 1000);
             reject('请重新登录');
           }
